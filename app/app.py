@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 # import redis
 
-# app = Flask(__name__)
+app = Flask(__name__)
 # default_key = '1'
 # cache = redis.StrictRedis(host='redis', port=6379, db=0)
 # cache.set(default_key, "one")
