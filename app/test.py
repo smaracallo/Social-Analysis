@@ -7,7 +7,7 @@ class TestDockerapp(unittest.TestCase):
         self.app = app.app.test_client()
 
     def test_basic(self):
-        assertTrue(True)
+        self.assertTrue(True)
 
     # def test_save_value(self):
     #     response = self.app.post('/', data=dict(submit='save', key='2', cache_value='two'))
