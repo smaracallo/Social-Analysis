@@ -2,7 +2,7 @@
 echo "STARTING CONTAINER ENTRYPOINT"
 echo $(which python)
 echo $(which pip)
-pip install numpy
+pip install -r requirements.txt
 celery -A workers worker --concurrency=20 --loglevel=info &
 python -m workers.run_tasks
 echo "FINISHED WITH SCRIPT"
