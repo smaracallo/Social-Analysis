@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from workers.celery import app
 import time
+
 @app.task
 def longtime_add(x,y):
     print('long time task begins')

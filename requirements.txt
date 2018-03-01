@@ -3,3 +3,4 @@ redis==2.10.5
 celery==4.0.2
 requests
 pymongo==3.4.0
+numpy==1.14.1

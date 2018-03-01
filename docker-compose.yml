@@ -17,7 +17,7 @@ services:
         - "5673:5672"
   worker:
     entrypoint: |
-      celery -A workers worker --concurrency=20 --loglevel=info
+      bash start_app.sh
     build:
       context: .
       dockerfile: dockerfile
@@ -31,3 +31,4 @@ services:
       - mongo
       - redis
       - rabbit
+
