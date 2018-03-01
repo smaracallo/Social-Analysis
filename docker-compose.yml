@@ -1,13 +1,33 @@
 version: "3.0"
 services:
-  dockerapp:
-    build: .
+  mongo:
+    hostname: mongo
+    image: mongo:3.7.2
+    ports:
+      - "27018:27017"
+  redis:
+    image: redis:3.2.0
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:3.7.3
+    environment:
+        - RABBITMQ_DEFAULT_USER=admin
+        - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+        - "5673:5672"
+  worker:
+    entrypoint: |
+      celery -A workers worker --concurrency=20 --loglevel=info
+    build:
+      context: .
+      dockerfile: dockerfile
     ports:
       - "5000:5000"
+    links:
+      - rabbit
+    volumes:
+      - ./app/:/app
     depends_on:
       - mongo
       - redis
-  mongo:
-    image: mongo:3.7.2
-  redis:
-    image: redis:3.2.0
+      - rabbit
