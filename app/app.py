@@ -1,7 +1,32 @@
 from flask import Flask, request, render_template
-# import redis
+import redis
+from celery import Celery
 
 app = Flask(__name__)
+flask_app.config.update(
+  CELERY_BROKER_URL='redis://localhost:6379',
+  CELERY_RESULT_BACKEND='redis://localhost:6379'
+)
+celery = make_celery(flask_app)
+
+
+@celery.task()
+def add_together(a, b):
+  return a + b
+
+# see: http://flask.pocoo.org/docs/0.12/patterns/celery/
+def make_celery(app):
+  celery = Celery(app.import_name, backend=app.config['CELERY_RESULT_BACKEND'],
+                  broker=app.config['CELERY_BROKER_URL'])
+  celery.conf.update(app.config)
+  TaskBase = celery.Task
+  class ContextTask(TaskBase):
+    abstract = True
+    def __call__(self, *args, **kwargs):
+      with app.app_context():
+        return TaskBase.__call__(self, *args, **kwargs)
+  celery.Task = ContextTask
+  return celery
 # default_key = '1'
 # cache = redis.StrictRedis(host='redis', port=6379, db=0)
 # cache.set(default_key, "one")
@@ -22,5 +47,5 @@ app = Flask(__name__)
 
 # 	return render_template('index.html', key=key, cache_value=cache_value)
 
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0')
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')

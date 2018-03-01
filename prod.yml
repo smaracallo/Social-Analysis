@@ -6,5 +6,8 @@ services:
       - "5000:5000"
     depends_on:
       - mongo
+      - redis
   mongo:
     image: mongo:3.7.2
+  redis:
+    image: redis:3.2.0
