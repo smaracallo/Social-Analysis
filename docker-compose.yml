@@ -25,6 +25,7 @@ services:
       - "5000:5000"
     links:
       - rabbit
+      - mongo
     volumes:
       - ./app/:/app
     depends_on:
