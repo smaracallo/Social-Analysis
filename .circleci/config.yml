@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            docker build . ;
+            docker build --no-cache . ;
             docker-compose up -d ;
             docker-compose run dockerapp python test.py ;
       - deploy:
