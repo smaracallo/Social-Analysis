@@ -15,7 +15,7 @@ services:
         - RABBITMQ_DEFAULT_PASS=mypass
     ports:
         - "5673:5672"
-  worker:
+  dockerapp:
     working_dir: /app/
     entrypoint: |
       bash start_app.sh
