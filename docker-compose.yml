@@ -16,7 +16,7 @@ services:
     ports:
         - "5673:5672"
   worker:
-    # working_dir: /app/
+    working_dir: /app/
     entrypoint: |
       bash start_app.sh
     build:
