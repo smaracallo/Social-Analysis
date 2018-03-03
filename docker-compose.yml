@@ -20,7 +20,7 @@ services:
       bash start_app.sh
     build:
       context: .
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     links:
