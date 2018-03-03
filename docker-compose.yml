@@ -27,7 +27,7 @@ services:
       - rabbit
       - mongo
     volumes:
-      - ./app/:/app
+      - ./:/app
     depends_on:
       - mongo
       - redis
