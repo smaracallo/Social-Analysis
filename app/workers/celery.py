@@ -19,6 +19,7 @@ twitter_api = TwitterAPI()
 
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
+  pass
   # Calls test('hello') every 10 seconds.
   # sender.add_periodic_task(5.0, test_twitter_api.s('test'), name='twitter api test')
 
