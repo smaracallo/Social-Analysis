@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /app/
     machine:
-      - image: docker:17.05.0-ce-git
+      image: circleci/classic:201708-01
     steps:
       - checkout
       - setup_remote_docker
