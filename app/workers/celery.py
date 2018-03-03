@@ -1,8 +1,21 @@
 from __future__ import absolute_import
 from celery import Celery
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 from .twitter.twitter_api import TwitterAPI
+
+dotenv_path = join(dirname(__file__), '.env')
+# load_dotenv(dotenv_path)
+
+# OR, the same with increased verbosity:
+load_dotenv(dotenv_path, verbose=True)
+print('celery file')
+print(os.environ.get('CONSUMER_KEY'))
+
 app = Celery('workers',broker='amqp://admin:mypass@rabbit:5672',backend='rpc://',include=['workers.tasks'])
 twitter_api = TwitterAPI()
+
 
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
