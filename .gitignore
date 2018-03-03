@@ -1,2 +1,6 @@
 .data
 .DS_Store
+*.pyc
+__pycache__
+celerybeat-schedule
+.env

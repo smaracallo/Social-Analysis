@@ -1,10 +1,36 @@
 version: "3.0"
 services:
+  mongo:
+    hostname: mongo
+    image: mongo:3.7.2
+    ports:
+      - "27018:27017"
+  redis:
+    image: redis:3.2.0
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:3.7.3
+    environment:
+        - RABBITMQ_DEFAULT_USER=admin
+        - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+        - "5673:5672"
   dockerapp:
-    build: .
+    working_dir: /app/
+    entrypoint: |
+      bash start_app.sh
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
+    links:
+      - rabbit
+      - mongo
+    volumes:
+      - ./:/app
     depends_on:
       - mongo
-  mongo:
-    image: mongo:3.7.2
+      - redis
+      - rabbit
+
