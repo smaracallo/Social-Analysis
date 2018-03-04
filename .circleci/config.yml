@@ -19,7 +19,7 @@ jobs:
           command: |
             docker build --no-cache . ;
             docker-compose up -d ;
-            docker-compose run dockerapp python test.py ;
+            docker-compose run dockerapp pyI thon test.py ;
       - deploy:
           name: Push application Docker image
           command: |
