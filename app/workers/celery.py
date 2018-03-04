@@ -5,7 +5,7 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 from .twitter.twitter_api import TwitterAPI
 
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '../.env')
 # load_dotenv(dotenv_path)
 
 # OR, the same with increased verbosity:
@@ -16,9 +16,10 @@ print(os.environ.get('CONSUMER_KEY'))
 app = Celery('workers',broker='amqp://admin:mypass@rabbit:5672',backend='rpc://',include=['workers.tasks'])
 twitter_api = TwitterAPI()
 
-
+print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
+  # print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
   pass
   # Calls test('hello') every 10 seconds.
   # sender.add_periodic_task(5.0, test_twitter_api.s('test'), name='twitter api test')
