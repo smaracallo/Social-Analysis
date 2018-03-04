@@ -16,6 +16,8 @@ jobs:
             docker build --no-cache . ;
             docker-compose up -d ;
             docker-compose run dockerapp python test.py ;
+          environment:
+            ENVIRONMENT: TEST
       - deploy:
           name: Push application Docker image
           command: |
