@@ -2,6 +2,9 @@
 echo "STARTING CONTAINER ENTRYPOINT"
 echo $(which python)
 echo $(which pip)
+echo 'ENVIRONMENT'
+echo $ENVIRONMENT
+echo 'END ECHO'
 cd ./app
 pip install -r requirements.txt
 celery -A workers worker -B --concurrency=20 --loglevel=info &
