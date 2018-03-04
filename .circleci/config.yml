@@ -11,9 +11,11 @@ jobs:
       #       apk add --no-cache py-pip=9.0.0-r1
       #       pip install docker-compose==1.15.0
       - run:
+          name: copy ENV vars to .env file
+          command: |
+            echo "ENVIRONMENT=${ENVIRONMENT}" > app/.env
+      - run:
           name: Run tests
-          environment:
-            - ENVIRONMENT: TEST
           command: |
             docker build --no-cache . ;
             docker-compose up -d ;
