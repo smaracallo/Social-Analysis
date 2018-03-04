@@ -5,6 +5,8 @@ services:
     image: mongo:3.7.2
     ports:
       - "27018:27017"
+    volumes:
+      - ./.mongodb_data:/data/db
   redis:
     image: redis:3.2.0
   rabbit:
