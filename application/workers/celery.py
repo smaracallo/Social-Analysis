@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 from celery import Celery
+import pdb
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -42,3 +43,7 @@ def test(arg):
 def test_twitter_api(test_val):
   # print(test_val)
   print(twitter_api.get_followers())
+
+
+if __name__=='__main__':
+  pdb.set_trace()
