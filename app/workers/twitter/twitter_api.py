@@ -1,5 +1,6 @@
 import os
 import tweepy
+import pdb
 
 class TwitterAPI():
 
@@ -15,6 +16,21 @@ class TwitterAPI():
 
     self.api = tweepy.API(auth)
 
-  def get_followers(self):
-    followers = self.api.followers(1952074310)
+  def get_followers(self, user_id):
+    user_id = 1952074310
+    users = self.api.followers(user_id)
+    pdb.set_trace()
+    #error handling
+
+    # extract provider-follower list from raw data
+
+    # save list of users to db
+
+    # save provider-follower list to db
     return followers
+
+  def __save_follower_list(followee, followers_response):
+    follower_dict = { "followee": followee }
+    follower_list = []
+    for follower in followers_response:
+      follower.id

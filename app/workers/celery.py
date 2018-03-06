@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 from celery import Celery
+import pdb
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -19,10 +20,11 @@ twitter_api = TwitterAPI()
 print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
+  pass
   # print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
-  if (os.environ.get('ENVIRONMENT') != 'TEST'):
-    # Calls test('hello') every 10 seconds.
-    sender.add_periodic_task(5.0, test_twitter_api.s('test'), name='twitter api test')
+  # if (os.environ.get('ENVIRONMENT') != 'TEST'):
+  #   # Calls test('hello') every 10 seconds.
+  #   sender.add_periodic_task(5.0, test_twitter_api.s('test'), name='twitter api test')
 
   # Calls test('world') every 30 seconds
   # sender.add_periodic_task(3.0, test.s('world'), expires=10)
@@ -41,3 +43,7 @@ def test(arg):
 def test_twitter_api(test_val):
   # print(test_val)
   print(twitter_api.get_followers())
+
+
+# if __name__=='__main__':
+#   pdb.set_trace()
