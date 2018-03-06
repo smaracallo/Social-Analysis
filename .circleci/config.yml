@@ -11,6 +11,10 @@ jobs:
       #       apk add --no-cache py-pip=9.0.0-r1
       #       pip install docker-compose==1.15.0
       - run:
+        name: create mongodb dir
+        command: |
+          mkdir .mongodb_data
+      - run:
           name: copy ENV vars to .env file
           command: |
             echo "ENVIRONMENT=${ENVIRONMENT}" > app/.env
