@@ -28,3 +28,9 @@ class TwitterAPI():
 
     # save provider-follower list to db
     return followers
+
+  def __save_follower_list(followee, followers_response):
+    follower_dict = { "followee": followee }
+    follower_list = []
+    for follower in followers_response:
+      follower.id

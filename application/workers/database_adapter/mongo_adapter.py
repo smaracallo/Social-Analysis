@@ -5,12 +5,12 @@ class MongoAdapter():
   def __init__(self):
     self.client = MongoClient('mongo', 27017) # change the ip and port to your mongo database's
     self.db = client.twitter_db
-    self.followers_collection = db.followers
+    self.follower_lists = db.followers
 
-  def create_followers(self, followers):
+  def create_follower_list(self, follower_list):
     # test whether the list of followers already exists
 
-    self.followers_collection.insert(followers)
+    self.follower_lists.insert(follower_list)
     return followers
 
   def create_users(self, users):
