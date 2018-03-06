@@ -8,6 +8,7 @@ class TwitterAPI():
 
   def __init__(self):
     print('tweet class!!')
+    print('printing something')
     print(os.environ.get('CONSUMER_KEY'))
     consumer_key = os.environ.get('CONSUMER_KEY')
     consumer_secret = os.environ.get('CONSUMER_SECRET')

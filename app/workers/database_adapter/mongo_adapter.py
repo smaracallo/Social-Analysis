@@ -10,7 +10,7 @@ class MongoAdapter():
     self.db = self.client.twitter_db
     self.follower_lists = self.db.followers
 
-  def create_follower_list(self, follower_list):
+  def create_or_update_follower_list(self, follower_list):
     # test whether the list of followers already exists
 
     followers = self.follower_lists.insert(follower_list)
