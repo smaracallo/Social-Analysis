@@ -45,5 +45,5 @@ def test_twitter_api(test_val):
   print(twitter_api.get_followers())
 
 
-if __name__=='__main__':
-  pdb.set_trace()
+# if __name__=='__main__':
+#   pdb.set_trace()
