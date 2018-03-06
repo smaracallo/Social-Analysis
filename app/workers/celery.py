@@ -20,6 +20,7 @@ twitter_api = TwitterAPI()
 print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
+  pass
   # print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
   # if (os.environ.get('ENVIRONMENT') != 'TEST'):
   #   # Calls test('hello') every 10 seconds.
