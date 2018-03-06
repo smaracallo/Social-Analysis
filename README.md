@@ -1,6 +1,3 @@
-# dockerapp
-Project source code for James Lee's Docker course.
+# Social Analysis
 
-Check out our latest DevOps PDF book.
-
-https://www.level-up.one/devops-pdf-book/
+This product ingests, persists, and analyzes data from twitter, as well as providing a frontend for visualizing social media engagement models. 

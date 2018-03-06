@@ -2,6 +2,8 @@ import os
 import tweepy
 import pdb
 
+from app.workers.database_adapter.mongo_adapter import MongoAdapter
+
 class TwitterAPI():
 
   def __init__(self):
@@ -15,6 +17,7 @@ class TwitterAPI():
     auth.set_access_token(access_token, access_token_secret)
 
     self.api = tweepy.API(auth)
+    self.mongo_adapter = MongoAdapter()
 
   def get_followers(self, user_id):
     user_id = 1952074310
@@ -33,4 +36,7 @@ class TwitterAPI():
     follower_dict = { "followee": followee }
     follower_list = []
     for follower in followers_response:
-      follower.id
+      follower_list += [follower.id]
+    follower_dict['followers'] = follower_list
+    db_response = self.mongo_adapter.create_follower_list(follower_dict)
+    return db_response
