@@ -20,7 +20,6 @@ twitter_api = TwitterAPI()
 print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
-  pass
   # print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
   # if (os.environ.get('ENVIRONMENT') != 'TEST'):
   #   # Calls test('hello') every 10 seconds.
@@ -30,10 +29,11 @@ def setup_periodic_tasks(sender, **kwargs):
   # sender.add_periodic_task(3.0, test.s('world'), expires=10)
 
   # Executes every Monday morning at 7:30 a.m.
-  # sender.add_periodic_task(
-  #   crontab(hour=7, minute=30, day_of_week=1),
-  #   test.s('Happy Mondays!'),
-  # )
+  # if (os.environ.get('ENVIRONMENT') != 'TEST'):
+  #   sender.add_periodic_task(
+  #     crontab(hour=7, minute=30, day_of_week=1),
+  #     test.s('Happy Mondays!'),
+  #   )
 
 @app.task
 def test(arg):
