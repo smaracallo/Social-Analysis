@@ -7,8 +7,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-from application.workers.twitter.twitter_api import TwitterAPI
-from application.workers.database_adapter.mongo_adapter import MongoAdapter
+from app.workers.twitter.twitter_api import TwitterAPI
+from app.workers.database_adapter.mongo_adapter import MongoAdapter
 
 dotenv_path = join(dirname(__file__), '../.env')
 load_dotenv(dotenv_path)

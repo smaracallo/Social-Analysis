@@ -5,7 +5,7 @@ echo $(which pip)
 echo 'ENVIRONMENT'
 echo $ENVIRONMENT
 echo 'END ECHO'
-cd ./application
+cd ./app
 pip install -r requirements.txt
 celery -A workers worker -B --concurrency=20 --loglevel=info &
 python -m workers.run_tasks

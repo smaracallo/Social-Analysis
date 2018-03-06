@@ -13,7 +13,7 @@ jobs:
       - run:
           name: copy ENV vars to .env file
           command: |
-            echo "ENVIRONMENT=${ENVIRONMENT}" > application/.env
+            echo "ENVIRONMENT=${ENVIRONMENT}" > app/.env
       - run:
           name: Run tests
           command: |
