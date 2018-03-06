@@ -2,9 +2,9 @@ from __future__ import absolute_import
 from .tasks import longtime_add
 from .celery import app
 import time
-# import os
-# from os.path import join, dirname
-# from dotenv import load_dotenv
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
 if __name__ == '__main__':
   # app.conf.beat_schedule = {
@@ -20,7 +20,10 @@ if __name__ == '__main__':
   # # OR, the same with increased verbosity:
   # load_dotenv(dotenv_path, verbose=True)
   # print(os.environ.get('CONSUMER_KEY'))
-  print('RUNNING!!')
+  if (os.environ.get('ENVIRONMENT') != 'TEST'):
+    print("Looping and running tasks in the background")
+    while True:
+      pass
 
     # for _ in range(0,10):
     #     result = longtime_add.delay('https://jsonplaceholder.typicode.com/posts/1')

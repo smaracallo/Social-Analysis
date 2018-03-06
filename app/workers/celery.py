@@ -30,10 +30,11 @@ def setup_periodic_tasks(sender, **kwargs):
   # sender.add_periodic_task(3.0, test.s('world'), expires=10)
 
   # Executes every Monday morning at 7:30 a.m.
-  # sender.add_periodic_task(
-  #   crontab(hour=7, minute=30, day_of_week=1),
-  #   test.s('Happy Mondays!'),
-  # )
+  # if (os.environ.get('ENVIRONMENT') != 'TEST'):
+  #   sender.add_periodic_task(
+  #     crontab(hour=7, minute=30, day_of_week=1),
+  #     test.s('Happy Mondays!'),
+  #   )
 
 @app.task
 def test(arg):
