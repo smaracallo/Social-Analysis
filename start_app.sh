@@ -5,6 +5,7 @@ echo $(which pip)
 echo 'ENVIRONMENT'
 echo $ENVIRONMENT
 echo 'END ECHO'
+export PYTHONPATH=$PYTHONPATH:/app/
 cd ./app
 pip install -r requirements.txt
 celery -A workers worker -B --concurrency=20 --loglevel=info &
