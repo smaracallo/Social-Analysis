@@ -6,7 +6,7 @@ class MongoAdapter():
     self.client = MongoClient('mongo', port) # change the ip and port to your mongo database's
     # Uncomment for local mode
     # TODO use an ENV var for this please
-    self.client = MongoClient('localhost', 27018)
+    # self.client = MongoClient('localhost', 27018)
     self.db = self.client.twitter_db
     self.follower_lists = self.db.followers
 
