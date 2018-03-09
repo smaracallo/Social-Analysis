@@ -28,6 +28,13 @@ class MongoAdapter():
   def create_users(self, users):
     pass
 
+  def get_random_follower(self):
+    random_follower = 1952074310
+    random_follower_generator = self.followers.aggregate([ { '$sample': { 'size': 1 } } ])
+    if random_follower_generator.alive:
+      random_follower = random_follower_generator.next()['id']
+    return random_follower
+
   def create_or_update_followers(self, followers):
     followers_response = []
     for follower in followers:

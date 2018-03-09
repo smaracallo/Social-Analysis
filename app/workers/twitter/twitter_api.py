@@ -20,8 +20,10 @@ class TwitterAPI():
     self.api = tweepy.API(auth)
     self.mongo_adapter = MongoAdapter()
 
-  def get_followers(self, user_id):
-    user_id = 1952074310
+  def get_and_persist_followers(self, user_id):
+    if user_id == None:
+      user_id = self.mongo_adapter.get_random_follower()
+      
     users = self.api.followers(user_id, count=100)
     follower_list_response = self.__save_follower_list(user_id, users)
     

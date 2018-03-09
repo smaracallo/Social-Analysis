@@ -16,4 +16,4 @@ load_dotenv(dotenv_path)
 if __name__=='__main__':
   # pdb.set_trace()
   twitter_api = TwitterAPI()
-  twitter_api.get_followers(12345)
+  twitter_api.get_and_persist_followers(None)
