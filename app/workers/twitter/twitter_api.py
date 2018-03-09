@@ -46,6 +46,6 @@ class TwitterAPI():
     for follower in followers_response:
       follower_list += [follower.id]
     follower_dict['followers'] = follower_list
-    db_response = self.mongo_adapter.create_or_update_follower_list({ "followee": followee }, follower_dict)
+    db_response = self.mongo_adapter.create_or_update_follower_list(follower_dict)
     # pdb.set_trace()
     return db_response
