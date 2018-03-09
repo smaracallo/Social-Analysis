@@ -22,7 +22,7 @@ class TwitterAPI():
 
   def get_followers(self, user_id):
     user_id = 1952074310
-    users = self.api.followers(user_id)
+    users = self.api.followers(user_id, count=100)
     follower_list_response = self.__save_follower_list(user_id, users)
     
     followers_response = self.__save_followers(users)
