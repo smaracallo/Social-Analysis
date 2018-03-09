@@ -23,7 +23,9 @@ class TwitterAPI():
   def get_followers(self, user_id):
     user_id = 1952074310
     users = self.api.followers(user_id)
-    db_response = self.__save_follower_list(user_id, users)
+    follower_list_response = self.__save_follower_list(user_id, users)
+    
+    followers_response = self.__save_followers(users)
     #error handling
 
     # extract provider-follower list from raw data
@@ -33,6 +35,10 @@ class TwitterAPI():
     # save provider-follower list to db
     return users
 
+  def __save_followers(self, users):
+    db_response = self.mongo_adapter.create_or_update_followers(users)
+    return db_response
+
   def __save_follower_list(self, followee, followers_response):
 
     follower_dict = { "followee": followee }
@@ -40,6 +46,6 @@ class TwitterAPI():
     for follower in followers_response:
       follower_list += [follower.id]
     follower_dict['followers'] = follower_list
-    db_response = self.mongo_adapter.create_or_update_follower_list(follower_dict)
+    db_response = self.mongo_adapter.create_or_update_follower_list({ "followee": followee }, follower_dict)
     # pdb.set_trace()
     return db_response
