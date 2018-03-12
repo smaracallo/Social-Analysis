@@ -21,12 +21,9 @@ print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
   # pass
-  print('celery file')
-  print(os.environ.get('CONSUMER_KEY'))
-  print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
-  if (os.environ.get('ENVIRONMENT') != 'TEST'):
+  if (os.environ.get('ENVIRONMENT') == 'PRODUCTION'):
     # Calls test('hello') every 10 seconds.
-    sender.add_periodic_task(5.0, test_twitter_api.s(''), name='twitter api test')
+    sender.add_periodic_task(62.0, test_twitter_api.s(''), name='twitter api test')
 
   # Calls test('world') every 30 seconds
   # sender.add_periodic_task(3.0, test.s('world'), expires=10)
@@ -45,6 +42,9 @@ def test(arg):
 @app.task
 def test_twitter_api(test_val):
   # print(test_val)
+  print('celery file')
+  print(os.environ.get('CONSUMER_KEY'))
+  print("Environment: {0}".format(os.environ.get('ENVIRONMENT')))
   print(twitter_api.get_and_persist_followers())
 
 
