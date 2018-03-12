@@ -1,6 +1,10 @@
-# version: "3.0"
-# services:
-#   dockerapp:
+version: "3.0"
+services:
+  dockerapp:
+    env_file: 
+      - ./app/.env
+    environment: 
+      - ENVIRONMENT=PRODUCTION
 #     build: wardnath/dockerapp
 #     ports:
 #       - "5000:5000"
