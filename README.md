@@ -76,7 +76,13 @@ To copy the production database to your local machine for testing run the comman
 mongodump --host 174.138.34.18:27018 
 ```
 
-then 
+then make sure that local mongodb is running if not run in the SocialAnalysis directory:
+
+```
+docker-compose -f docker-compose.yml  up 
+```
+
+then
 
 ```
 mongorestore dump --host localhost:27018
