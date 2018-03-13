@@ -67,3 +67,18 @@ docker-compose -f docker-compose.yml -f prod.yml up -d  --force-recreate
 ```
 
 That's it, now the app is running in PROD
+
+### MongoDB Copy
+
+To copy the production database to your local machine for testing run the command:
+
+```
+mongodump --host 174.138.34.18:27018 
+```
+
+then 
+
+```
+mongorestore dump --host localhost:27018
+```
+
