@@ -4,6 +4,8 @@ echo $(which python)
 echo $(which pip)
 echo 'ENVIRONMENT'
 echo $ENVIRONMENT
+echo 'CONSUMER_KEY'
+echo $CONSUMER_KEY
 echo 'END ECHO'
 export PYTHONPATH=$PYTHONPATH:/app/
 cd ./app

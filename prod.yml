@@ -1,6 +1,13 @@
-# version: "3.0"
-# services:
-#   dockerapp:
+version: "3.0"
+services:
+  dockerapp:
+    image: wardnath89/dockerapp:latest
+    env_file: 
+      - ./app/.env
+    environment: 
+      - ENVIRONMENT=PRODUCTION
+    volumes:
+      - /root/:/app
 #     build: wardnath/dockerapp
 #     ports:
 #       - "5000:5000"
