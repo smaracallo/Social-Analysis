@@ -35,6 +35,10 @@ class MongoAdapter():
       random_follower = random_follower_generator.next()['id']
     return random_follower
 
+  def provide_followers_for_collaborative_filtering():
+    # get relatitionships from database and return in the format that implicit needs
+    pass
+    
   def create_or_update_followers(self, followers):
     followers_response = []
     for follower in followers:
