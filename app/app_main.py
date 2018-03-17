@@ -4,6 +4,11 @@ import redis
 from celery import Celery
 import os
 
+from flask import Flask
+from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+
 from os.path import join, dirname
 from dotenv import load_dotenv
 
@@ -11,18 +16,18 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 # see: http://flask.pocoo.org/docs/0.12/patterns/celery/
-def make_celery(app):
-  celery = Celery(app.import_name, backend=app.config['CELERY_RESULT_BACKEND'],
-                  broker=app.config['CELERY_BROKER_URL'])
-  celery.conf.update(app.config)
-  TaskBase = celery.Task
-  class ContextTask(TaskBase):
-    abstract = True
-    def __call__(self, *args, **kwargs):
-      with app.app_context():
-        return TaskBase.__call__(self, *args, **kwargs)
-  celery.Task = ContextTask
-  return celery
+# def make_celery(app):
+#   celery = Celery(app.import_name, backend=app.config['CELERY_RESULT_BACKEND'],
+#                   broker=app.config['CELERY_BROKER_URL'])
+#   celery.conf.update(app.config)
+#   TaskBase = celery.Task
+#   class ContextTask(TaskBase):
+#     abstract = True
+#     def __call__(self, *args, **kwargs):
+#       with app.app_context():
+#         return TaskBase.__call__(self, *args, **kwargs)
+#   celery.Task = ContextTask
+#   return celery
 
 
 # consumer_key = os.environ.get('CONSUMER_KEY')
@@ -32,27 +37,27 @@ def make_celery(app):
 
 # WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP 
 # NOTE this is not the final way that we will be getting data from twitter WIP
-app = Flask(__name__)
-app.secret_key = "supersekrit"
-blueprint = make_twitter_blueprint(
-    api_key=os.environ.get('CONSUMER_KEY'),
-    api_secret=os.environ.get('CONSUMER_SECRET'),
-)
-app.config.update(
-  CELERY_BROKER_URL='redis://localhost:6379',
-  CELERY_RESULT_BACKEND='redis://localhost:6379'
-)
-celery = make_celery(app)
+# app = Flask(__name__)
+# app.secret_key = "supersekrit"
+# blueprint = make_twitter_blueprint(
+#     api_key=os.environ.get('CONSUMER_KEY'),
+#     api_secret=os.environ.get('CONSUMER_SECRET'),
+# )
+# app.config.update(
+#   CELERY_BROKER_URL='redis://localhost:6379',
+#   CELERY_RESULT_BACKEND='redis://localhost:6379'
+# )
+# celery = make_celery(app)
 
-app.register_blueprint(blueprint, url_prefix="/login")
+# app.register_blueprint(blueprint, url_prefix="/login")
 
-@celery.task()
-def add_together(a, b):
-  return a + b
+# @celery.task()
+# def add_together(a, b):
+#   return a + b
 
-default_key = '1'
-cache = redis.StrictRedis(host='redis', port=6379, db=0)
-cache.set(default_key, "one")
+# default_key = '1'
+# cache = redis.StrictRedis(host='redis', port=6379, db=0)
+# cache.set(default_key, "one")
 
 # @app.route('/', methods=['GET', 'POST'])
 # def mainpage():
@@ -70,14 +75,28 @@ cache.set(default_key, "one")
 
 #   return render_template('index.html', key=key, cache_value=cache_value)
 
-@app.route("/")
-def index():
-    if not twitter.authorized:
-        return redirect(url_for("twitter.login"))
-    resp = twitter.get("account/settings.json")
-    assert resp.ok
-    return "You are @{screen_name} on Twitter".format(screen_name=resp.json()["screen_name"])
+# @app.route("/")
+# def index():
+#     if not twitter.authorized:
+#         return redirect(url_for("twitter.login"))
+#     resp = twitter.get("account/settings.json")
+#     assert resp.ok
+#     return "You are @{screen_name} on Twitter".format(screen_name=resp.json()["screen_name"])
 
+app = Flask(__name__)
+CORS(app)
+
+# app_settings = os.getenv(
+#     'APP_SETTINGS',
+#     'project.server.config.DevelopmentConfig'
+# )
+# app.config.from_object(app_settings)
+
+bcrypt = Bcrypt(app)
+db = SQLAlchemy(app)
+
+from routes.auth.views import auth_blueprint
+app.register_blueprint(auth_blueprint)
 
 if __name__ == '__main__':
   print("Running Flask Server")
