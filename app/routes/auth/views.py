@@ -179,31 +179,92 @@ class LogoutAPI(MethodView):
         #     }
         return make_response(jsonify(responseObject)), 403
 
+class AuthMeApi(MethodView):
+    """
+    Logout Resource
+    """
+    def get(self):
+        responseObject = {}
+        return make_response(jsonify(responseObject)), 200
+
+class AuthTwitterReverseApi(MethodView):
+    """
+    Logout Resource
+    """
+    def post(self):
+        responseObject = {}
+        return make_response(jsonify(responseObject)), 200
+
+class AuthTwitterApi(MethodView):
+    """
+    Logout Resource
+    """
+    def post(self):
+        responseObject = {}
+        return make_response(jsonify(responseObject)), 200
+
+class HealthCheckApi(MethodView):
+    """
+    Logout Resource
+    """
+    def get(self):
+        responseObject = {}
+        return make_response(jsonify(responseObject)), 200
+
 # define the API resources
 registration_view = RegisterAPI.as_view('register_api')
 login_view = LoginAPI.as_view('login_api')
 user_view = UserAPI.as_view('user_api')
 logout_view = LogoutAPI.as_view('logout_api')
 
+'/health-check'
+'/auth/twitter/reverse'
+'/auth/twitter'
+'/auth/me'
+
+health_check_view = HealthCheckApi.as_view('healh_check_api')
+auth_twitter_reverse_view = AuthTwitterReverseApi.as_view('auth_twitter_reverse_api')
+auth_twitter_view = AuthTwitterApi.as_view('auth_twitter_api')
+auth_me_view = AuthMeApi.as_view('auth_me_api')
 # add Rules for API Endpoints
+# auth_blueprint.add_url_rule(
+#     '/auth/register',
+#     view_func=registration_view,
+#     methods=['POST']
+# )
+# auth_blueprint.add_url_rule(
+#     '/auth/login',
+#     view_func=login_view,
+#     methods=['POST']
+# )
+# auth_blueprint.add_url_rule(
+#     '/auth/status',
+#     view_func=user_view,
+#     methods=['GET']
+# )
+# auth_blueprint.add_url_rule(
+#     '/auth/logout',
+#     view_func=logout_view,
+#     methods=['POST']
+# )
 auth_blueprint.add_url_rule(
-    '/auth/register',
-    view_func=registration_view,
-    methods=['POST']
-)
-auth_blueprint.add_url_rule(
-    '/auth/login',
-    view_func=login_view,
-    methods=['POST']
-)
-auth_blueprint.add_url_rule(
-    '/auth/status',
-    view_func=user_view,
+    '/health-check',
+    view_func=health_check_view,
     methods=['GET']
 )
 auth_blueprint.add_url_rule(
-    '/auth/logout',
-    view_func=logout_view,
+    '/auth/twitter/reverse',
+    view_func=auth_twitter_reverse_view,
+    methods=['GET']
+)
+auth_blueprint.add_url_rule(
+    '/auth/twitter',
+    view_func=auth_twitter_view,
+    methods=['POST']
+)
+auth_blueprint.add_url_rule(
+    '/auth/me',
+    view_func=auth_me_view,
     methods=['POST']
 )
 auth_blueprint.add_url_rule(
