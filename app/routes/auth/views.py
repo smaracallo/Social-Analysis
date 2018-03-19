@@ -2,7 +2,7 @@ from flask import Blueprint, request, make_response, jsonify
 from flask.views import MethodView
 
 # from project.server import bcrypt, db
-# from project.server.models import User, BlacklistToken
+from app.models.user_model import User
 
 auth_blueprint = Blueprint('auth', __name__)
 
@@ -193,6 +193,7 @@ class AuthTwitterReverseApi(MethodView):
     """
     def post(self):
         responseObject = {}
+        user = User(email='foobar@example.com').save()
         return make_response(jsonify(responseObject)), 200
 
 class AuthTwitterApi(MethodView):
@@ -201,6 +202,7 @@ class AuthTwitterApi(MethodView):
     """
     def post(self):
         responseObject = {}
+        # user = User(email='foobar@example.com')
         return make_response(jsonify(responseObject)), 200
 
 class HealthCheckApi(MethodView):
@@ -255,7 +257,7 @@ auth_blueprint.add_url_rule(
 auth_blueprint.add_url_rule(
     '/auth/twitter/reverse',
     view_func=auth_twitter_reverse_view,
-    methods=['GET']
+    methods=['POST']
 )
 auth_blueprint.add_url_rule(
     '/auth/twitter',
@@ -265,7 +267,7 @@ auth_blueprint.add_url_rule(
 auth_blueprint.add_url_rule(
     '/auth/me',
     view_func=auth_me_view,
-    methods=['POST']
+    methods=['GET']
 )
 auth_blueprint.add_url_rule(
     '/',

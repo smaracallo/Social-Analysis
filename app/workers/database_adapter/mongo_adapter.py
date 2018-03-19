@@ -25,9 +25,6 @@ class MongoAdapter():
       follower_list_response = self.follower_lists.insert_one(follower_list)
     return follower_list_response
 
-  def create_users(self, users):
-    pass
-
   def get_random_follower(self):
     random_follower = 1952074310
     random_follower_generator = self.followers.aggregate([ { '$sample': { 'size': 1 } } ])
