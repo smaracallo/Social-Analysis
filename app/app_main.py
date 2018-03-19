@@ -99,5 +99,6 @@ from routes.auth.views import auth_blueprint
 app.register_blueprint(auth_blueprint)
 
 if __name__ == '__main__':
-  print("Running Flask Server")
-  app.run(host='0.0.0.0')
+  if (os.environ.get('ENVIRONMENT') != 'TEST'):
+    print("Running Flask Server")
+    app.run(host='0.0.0.0')
