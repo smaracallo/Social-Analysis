@@ -3,6 +3,7 @@ from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 import redis
 from celery import Celery
 import os
+import logging
 
 from flask import Flask
 from flask_bcrypt import Bcrypt
@@ -97,6 +98,13 @@ db = SQLAlchemy(app)
 
 from routes.auth.views import auth_blueprint
 app.register_blueprint(auth_blueprint)
+
+@app.before_first_request
+def setup_logging():
+    if not app.debug:
+        # In production mode, add log handler to sys.stderr.
+        app.logger.addHandler(logging.StreamHandler())
+        app.logger.setLevel(logging.INFO)
 
 if __name__ == '__main__':
   if (os.environ.get('ENVIRONMENT') != 'TEST'):
