@@ -99,6 +99,8 @@ db = SQLAlchemy(app)
 from routes.auth.views import auth_blueprint
 app.register_blueprint(auth_blueprint)
 
+app.debug = True
+
 @app.before_first_request
 def setup_logging():
     if not app.debug:

@@ -11,7 +11,7 @@ export PYTHONPATH=$PYTHONPATH:/app/
 cd ./app
 pip install -r requirements.txt
 celery -A workers worker -B --concurrency=20 --loglevel=info &
-# python -m workers.run_tasks
-python -m app_main
+python -m workers.run_tasks
+# python -m app_main
 echo "FINISHED WITH SCRIPT"
 # sleep 500000000

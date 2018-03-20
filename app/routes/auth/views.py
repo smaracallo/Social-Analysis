@@ -2,7 +2,8 @@ import requests
 from requests_oauthlib import OAuth1
 from flask import Blueprint, request, make_response, jsonify, current_app
 from flask.views import MethodView
-
+import pdb
+from urllib.parse import parse_qsl
 # from project.server import bcrypt, db
 import os
 from os.path import join, dirname
@@ -211,12 +212,17 @@ class AuthTwitterReverseApi(MethodView):
         r = requests.post(url='https://api.twitter.com/oauth/request_token',
             auth=twitter_oauth)
         # Send response back
-        current_app.logger.info("r!!!")
-        current_app.logger.info(r)
+ 
+        query_params = parse_qsl(r.text)
+        # current_app.logger.info(r.json())
+        # current_app.logger.info(r.raw)
+        # pdb.set_trace()
+        response_object = {}
+        for param in query_params:
+            response_object[param[0]] = param[1]
 
-        responseObject = {}
         # user = User(email='foobar@example.com').save()
-        return make_response(jsonify(responseObject)), 200
+        return make_response(jsonify(response_object)), 200
 
 class AuthTwitterApi(MethodView):
     """
